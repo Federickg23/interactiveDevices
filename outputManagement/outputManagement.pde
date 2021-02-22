@@ -14,6 +14,8 @@ import java.util.Arrays;
 
 Serial myPort;  // Create object from Serial class
 String val;      // Data received from the serial port
+PFont f;
+
 
 void setup() 
 {
@@ -26,6 +28,14 @@ void setup()
   String portName = Serial.list()[0];
   System.out.println(portName);
   myPort = new Serial(this, portName, 115200);
+  f = createFont("Source Code Pro", 24);
+  textFont(f);
+
+  // Create the font
+  printArray(PFont.list());
+  f = createFont("SourceCodePro-Regular.ttf", 24);
+  textFont(f);
+
 }
 
 void draw()
@@ -39,6 +49,8 @@ void draw()
     String[] values = val.split(","); 
     System.out.println(val);
     background(255);             // Set background to white
+
+    dice(); 
     if (values[2] != null && values[2].equals("0")) {              // If the serial value is 0,
       fill(0);                   // set fill to black
     } 
@@ -46,10 +58,67 @@ void draw()
       fill(204);                 // set fill to light gray
     }
     rect(50, 50, 100, 100);
+
+
   }
 }
 
+void dice(){
+  background(102);
+  
+  pushMatrix();
+  translate(width*0.2, height*0.5);
+  //rotate(frameCount);
+  rotate(3*PI/2);
+  fill(255,255,255);
+  polygon(0,0,70,6);
+  polygon(0,0, 40, 3); 
+  popMatrix(); 
+  
+  pushMatrix();
+  translate(width*0.5, height*0.5);
+  //rotate(frameCount);
+  rotate(3*PI/2);
+  polygon(0,0,70,10);
+  polygon(0,0, 40, 5); 
+  popMatrix();
+  
+  pushMatrix(); 
+  translate(width*0.8, height*0.5); 
+  rotate(PI/4);
+  polygon(0,0, 65, 4); 
+  popMatrix(); 
+  
+  pushMatrix();
+  translate(width*0.2, height*0.5);
+  fill(0); 
+  text("20", -15, 8); 
+  popMatrix(); 
+  
+  pushMatrix();
+  translate(width*0.5, height*0.5);
+  fill(0); 
+  text("12", -15, 8); 
+  popMatrix(); 
+  
+  pushMatrix();
+  translate(width*0.8, height*0.5);
+  fill(0); 
+  text("6", -10, 8); 
+  popMatrix(); 
+  
+}
 
+void polygon(float x, float y, float radius, int npoints) {
+  float angle = TWO_PI / npoints;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * radius;
+    float sy = y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
 
 /*
 // Wiring / Arduino Code
