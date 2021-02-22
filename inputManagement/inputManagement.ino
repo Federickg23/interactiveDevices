@@ -18,6 +18,6 @@ void loop() {
   int b1 = digitalRead(BUTTON_ONE); 
   int b2 = digitalRead(BUTTON_TWO); 
   int switchVal = digitalRead(SWITCH_PIN); 
-  Serial.printf("X,Y,Z: %d,\t%d,\t%d\nB1: %d\nB2:%d\nSwitch: %d\n", xVal, yVal, zVal, b1, b2, switchVal);
+  Serial.printf("%d,%d,%d,%d,%d,%d\n", xVal, yVal, zVal, b1, b2, switchVal);
   delay(500);
 }

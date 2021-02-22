@@ -10,6 +10,7 @@
 
 
 import processing.serial.*;
+import java.util.Arrays;
 
 Serial myPort;  // Create object from Serial class
 String val;      // Data received from the serial port
@@ -29,21 +30,23 @@ void setup()
 
 void draw()
 {
+ 
   if ( myPort.available() > 0) {  // If data is available,
     val = myPort.readStringUntil('\n');         // read it and store it in val
   }
   val = trim(val);
-  if (val != null)
-    val = val.substring(val.length()-1); 
-  System.out.println(val);
-  background(255);             // Set background to white
-  if (val != null && val.equals("0")) {              // If the serial value is 0,
-    fill(0);                   // set fill to black
-  } 
-  else {                       // If the serial value is not 0,
-    fill(204);                 // set fill to light gray
+  if (val != null){
+    String[] values = val.split(","); 
+    System.out.println(val);
+    background(255);             // Set background to white
+    if (values[2] != null && values[2].equals("0")) {              // If the serial value is 0,
+      fill(0);                   // set fill to black
+    } 
+    else {                       // If the serial value is not 0,
+      fill(204);                 // set fill to light gray
+    }
+    rect(50, 50, 100, 100);
   }
-  rect(50, 50, 100, 100);
 }
 
 
