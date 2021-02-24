@@ -19,13 +19,25 @@ PFont f;
 String d20; 
 String d12;
 String d6;
+String[] dSides = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13","14","15","16","17","18","19","20"};
+
+int d20Height;
+int d12Height;
+int d6Height;
+
 int selected = 0; 
 int prevSwitch = 0;
 int prevZ = 1; 
+int prevB1 = 0; 
+int prevB2 = 0; 
 boolean instructions = false; 
+boolean change; 
+
+int count = 0;
 
 void setup() 
 {
+  
   //System.out.println(Serial.list());
   size(800, 600);
   // I know that the first port in the serial list on my mac
@@ -42,7 +54,14 @@ void setup()
   printArray(PFont.list());
   f = createFont("Source Code Pro", 24);
   textFont(f);
+  
+  d20 = "20";
+  d12 = "12";
+  d6 = "6";
 
+  d20Height = height/2;
+  d12Height = height/2;
+  d6Height = height/2;
 }
 
 void draw()
@@ -70,6 +89,49 @@ void draw()
        instructions = !instructions;  
     }
     
+    if(prevB2 == 0 && values[4] == 1){
+        d20 = "20";
+        d12 = "12";
+        d6 = "6";
+      
+        d20Height = height/2;
+        d12Height = height/2;
+        d6Height = height/2;
+        change = false;
+        count = 0; 
+        instructions = false; 
+        
+        selected = 0; 
+        prevSwitch = 0;
+        prevZ = 1; 
+        prevB1 = 0; 
+        prevB2 = 0; 
+        
+    }
+    
+    if(values[1] > 2000) {
+       if(selected == 0){
+         d20Height++; 
+       }
+       else if ( selected == 1){
+         d12Height++; 
+       }
+       else {
+        d6Height++; 
+       }
+    }
+    else if (values[1] < 1000){
+      if(selected == 0){
+         d20Height--; 
+       }
+       else if ( selected == 1){
+         d12Height--; 
+       }
+       else {
+        d6Height--; 
+       }
+    }
+    
     if(values[0] > 2000 && values[5] != prevSwitch){
       selected +=1;
       if (selected > 2){
@@ -82,69 +144,103 @@ void draw()
         selected = 2;
       }
     }
-    
+    if(prevB1 == 0 && values[3] ==1){
+     change = true;  
+    }
     prevSwitch = values[5];
     prevZ = values[2];
+    
+    if(change){
+       count ++ ;  
+    }
+    
     dice(); 
     if(instructions)
       instructionText(); 
   }
+  
+  System.out.println(count); 
 }
 
 void dice(){
-  d20 = "20";
-  d12 = "12";
-  d6 = "6";
+  
   //background(102);
   
   pushMatrix();
-  translate(width*0.2, height*0.5);
+  translate(width*0.2, d20Height);
   //rotate(frameCount);
   rotate(3*PI/2);
   fill(255,255,255);
   if(selected == 0){
     fill(255, 255, 0);
+    if(count > 0){
+       if (count % 7 == 0){
+         d20 = dSides[(int)(Math.random()*20)];
+       }
+    } 
+    if(count > 100){
+       count = 0; 
+       change = false; 
+    }
   }
   polygon(0,0,70,6);
   polygon(0,0, 40, 3); 
   popMatrix(); 
   
   pushMatrix();
-  translate(width*0.5, height*0.5);
+  translate(width*0.5, d12Height);
   //rotate(frameCount);
   rotate(3*PI/2);
   fill(255,255,255);
   if(selected == 1){
     fill(255, 255, 0);
+    if(count > 0){
+       if (count % 4 == 0){
+         d12 = dSides[(int)(Math.random()*12)];
+       }
+    } 
+    if(count > 100){
+       count = 0; 
+       change = false; 
+    }
   }
   polygon(0,0,70,10);
   polygon(0,0, 40, 5); 
   popMatrix();
   
   pushMatrix(); 
-  translate(width*0.8, height*0.5); 
+  translate(width*0.8, d6Height); 
   rotate(PI/4);
   fill(255,255,255);
   if(selected == 2){
     fill(255, 255, 0);
+    if(count > 0){
+       if (count % 4 == 0){
+         d6 = dSides[(int)(Math.random()*6)];
+       }
+    } 
+    if(count > 100){
+       count = 0; 
+       change = false; 
+    }
   }
   polygon(0,0, 65, 4); 
   popMatrix(); 
   
   pushMatrix();
-  translate(width*0.2, height*0.5);
+  translate(width*0.2, d20Height);
   fill(0); 
   text(d20, -15, 8); 
   popMatrix(); 
   
   pushMatrix();
-  translate(width*0.5, height*0.5);
+  translate(width*0.5, d12Height);
   fill(0); 
   text(d12, -15, 8); 
   popMatrix(); 
   
   pushMatrix();
-  translate(width*0.8, height*0.5);
+  translate(width*0.8, d6Height);
   fill(0); 
   text(d6, -10, 8); 
   popMatrix(); 
