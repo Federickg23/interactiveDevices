@@ -38,20 +38,20 @@ int count = 0;
 void setup() 
 {
   
-  //System.out.println(Serial.list());
-  size(800, 600);
+  printArray(Serial.list());
+  size(800,600);
   // I know that the first port in the serial list on my mac
   // is always my  FTDI adaptor, so I open Serial.list()[0].
   // On Windows machines, this generally opens COM1.
   // Open whatever port is the one you're using.
-  String portName = Serial.list()[0];
+  String portName = Serial.list()[2];
   System.out.println(portName);
   myPort = new Serial(this, portName, 115200);
   f = createFont("Source Code Pro", 24);
   textFont(f);
 
   // Create the font
-  printArray(PFont.list());
+  //printArray(PFont.list());
   f = createFont("Source Code Pro", 24);
   textFont(f);
   
@@ -111,24 +111,24 @@ void draw()
     
     if(values[1] > 2000) {
        if(selected == 0){
-         d20Height++; 
+         d20Height+=3; 
        }
        else if ( selected == 1){
-         d12Height++; 
+         d12Height+=3; 
        }
        else {
-        d6Height++; 
+        d6Height+=3; 
        }
     }
     else if (values[1] < 1000){
       if(selected == 0){
-         d20Height--; 
+         d20Height-=3; 
        }
        else if ( selected == 1){
-         d12Height--; 
+         d12Height-=3; 
        }
        else {
-        d6Height--; 
+        d6Height-=3; 
        }
     }
     
@@ -260,40 +260,14 @@ void polygon(float x, float y, float radius, int npoints) {
 
 void instructionText(){
     textSize(24);
-    text("Welcome to a dice rolling adventure! ", 150, 60);
+    text("Welcome to a dice rolling adventure! ", 185, 60);
     textSize(40); 
-    text("It's your turn to roll! ", 130, 160);
+    text("It's your turn to roll! ",200, 160);
     textSize(20);
-    text("Use the joystick to indicate the direction of the dice you wish"+ 
-       "\nto use, and activate the switch to switch between dice. Push "+
-       "\ndown on the joystick to find the instructions (but you've done"+
-       "\nthat bit already, haven't you?). Click the yellow button to roll.", 20, 460);
+    text("Use the joystick to indicate the direction of the dice you wish to use and"+ 
+       "\nactivate the switch to switch between dice. Push down on the joysticl to find "+
+       "\nthe instructions (but you've done that bit already, haven't you?). Click the"+
+       "\nyellow button to roll. After that, have fun with the red button :)", 20, 460);
     textSize(24);
     
 }
-
-/*
-// Wiring / Arduino Code
-// Slightly modified from the freenove joystick example
-  Filename    : Joystick
-  Description : Read data from joystick.
-  Auther      : www.freenove.com
-  Modification: 2020/07/11
-int xyzPins[] = {13, 12, 14};   //x,y,z pins
-void setup() {
-  Serial.begin(9600);
-  pinMode(xyzPins[2], INPUT_PULLUP);  //z axis is a button.
-  pinMode(25, INPUT_PULLUP);  //button.
-}
-void loop() {
-  int xVal = analogRead(xyzPins[0]);
-  int yVal = analogRead(xyzPins[1]);
-  int zVal = digitalRead(xyzPins[2]);
-  //Serial.printf("X,Y,Z: %d,\t%d,\t%d\n", xVal, yVal, zVal);
-  //Serial.printf(zVal);
-  int buttonVal = digitalRead(25);
-  Serial.print(buttonVal);
-  Serial.print('\n');
-  delay(100);
-}
-*/
