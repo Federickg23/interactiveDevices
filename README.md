@@ -3,6 +3,7 @@
 This repo contains a simple arduino program, and a processing script. The arduino code should be uploaded to an ESP32 wrover module before attempting to run the processing script. To successfully run everything, you'll need a raspberry pi, an ESP32 wrover module, a monitor, a 3 axis joysick, 2 momentary buttons, and one DPST switch. When all of this is connected, you will be presented with 3 virtual dice of 20, 12, and 6 sides. Since this project is Dungeons and Dragons themed, finding the instructions is going to be an adventure of your own! 
 
 [Video Demo](https://youtu.be/odz9Fv931Ek)
+
 [Video with enclosure](https://youtu.be/Y-qNVOHN09M)
 
 
