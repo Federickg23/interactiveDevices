@@ -51,7 +51,7 @@ void setup()
   textFont(f);
 
   // Create the font
-  printArray(PFont.list());
+  //printArray(PFont.list());
   f = createFont("Source Code Pro", 24);
   textFont(f);
   
@@ -71,6 +71,7 @@ void draw()
     val = myPort.readStringUntil('\n');         // read it and store it in val
   }
   val = trim(val);
+  print(val); 
   if (val != null){
     String[] temp = val.split(","); 
     int[] values = new int[temp.length];
