@@ -21,7 +21,7 @@ This program requires a Raspberry Pi 3b+ running Raspbian GNU/Linux version 10+,
 
 The following is the intended configuration: 
 
-![Image of hardware](https://imgur.com/xx0woau)
+![Image of hardware](images/wiring.jpg)
 
 ## Software 
 
